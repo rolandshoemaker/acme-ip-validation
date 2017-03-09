@@ -402,7 +402,7 @@ HTTP/1.1 200 OK
 }
 </pre>
 <p id="rfc.section.4.1.p.3">A client responds to this challenge by constructing a key authorization from the &#8220;token&#8221; value provided in the challenge and the client&#8217;s account key.  The client then computes the SHA-256 digest <a href="#FIPS180-4">[FIPS180-4]</a> of the key authorization.</p>
-<p id="rfc.section.4.1.p.4">The record provisioned to the DNS is the base64url encoding of this digest. The client constructs the validation domain name by prepending the label &#8220;_acme-challenge&#8221; to the domain name referenced in the PTR resource record for the IN-ADDR.ARPA <a href="#RFC1034">[RFC1034]</a> mapping of the IP address. The client then provisions a TXT record with the digest for this name. For example, if the IP address being validated is &#8220;192.0.2.1&#8221; and its IN-ADDR.ARPA mapping had the following PTR record:</p>
+<p id="rfc.section.4.1.p.4">The record provisioned to the DNS is the base64url encoding of this digest. The client constructs the validation domain name by prepending the label &#8220;_acme-challenge&#8221; to the domain name referenced in the PTR resource record for the IN-ADDR.ARPA <a href="#RFC1034">[RFC1034]</a> or IP6.ARPA <a href="#RFC3596">[RFC3596]</a> mapping of the IP address.  The client then provisions a TXT record with the digest for this name. For example, if the IP address being validated is &#8220;192.0.2.1&#8221; and its IN-ADDR.ARPA mapping had the following PTR record:</p>
 <pre>
 1.2.0.192.in-addr.arpa. 300 IN PTR example.com
 </pre>
@@ -441,7 +441,7 @@ Content-Type: application/jose+json
 
 <ol>
   <li>Compute the SHA-256 digest of the key authorization</li>
-  <li>Query for PTR records for the IP identifiers IN-ADDR.ARPA mapping</li>
+  <li>Query for PTR records for the IP identifiers relevant mapping based on its version</li>
   <li>Query for TXT records for the validation domain name</li>
   <li>Verify that the contents of one of the TXT records matches the digest value</li>
 </ol>
@@ -489,6 +489,12 @@ Content-Type: application/jose+json
         <b id="RFC2119">[RFC2119]</b>
       </td>
       <td class="top"><a>Bradner, S.</a>, "<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC3596">[RFC3596]</b>
+      </td>
+      <td class="top"><a>Thomson, S.</a>, <a>Huitema, C.</a>, <a>Ksinant, V.</a> and <a>M. Souissi</a>, "<a href="http://tools.ietf.org/html/rfc3596">DNS Extensions to Support IP Version 6</a>", RFC 3596, DOI 10.17487/RFC3596, October 2003.</td>
     </tr>
     <tr>
       <td class="reference">
