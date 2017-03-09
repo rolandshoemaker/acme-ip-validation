@@ -22,6 +22,7 @@ normative:
   RFC1034:
   RFC1123:
   RFC2119:
+  RFC3596:
   RFC5252:
   I-D.ietf-acme-acme:
   FIPS180-4:
@@ -105,10 +106,10 @@ client then computes the SHA-256 digest [FIPS180-4] of the key authorization.
 The record provisioned to the DNS is the base64url encoding of this digest. The
 client constructs the validation domain name by prepending the label
 "_acme-challenge" to the domain name referenced in the PTR resource record for
-the IN-ADDR.ARPA {{!RFC1034}} mapping of the IP address. The client then
-provisions a TXT record with the digest for this name. For example, if the IP
-address being validated is "192.0.2.1" and its IN-ADDR.ARPA mapping had the
-following PTR record:
+the IN-ADDR.ARPA {{!RFC1034}} or IP6.ARPA {{!RFC3596}} mapping of the IP address.
+The client then provisions a TXT record with the digest for this name. For
+example, if the IP address being validated is "192.0.2.1" and its IN-ADDR.ARPA
+mapping had the following PTR record:
 
 ~~~~~~~~~~
 1.2.0.192.in-addr.arpa. 300 IN PTR example.com
@@ -154,7 +155,7 @@ response to the POST request in which the client sent the challenge.
 To validate a DNS challenge, the server performs the following steps:
 
 1. Compute the SHA-256 digest of the key authorization
-2. Query for PTR records for the IP identifiers IN-ADDR.ARPA mapping
+2. Query for PTR records for the IP identifiers relevant mapping based on its version
 2. Query for TXT records for the validation domain name
 3. Verify that the contents of one of the TXT records matches the digest value
 
