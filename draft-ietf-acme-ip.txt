@@ -72,7 +72,7 @@ Table of Contents
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
      6.1.  Certificate Lifetime  . . . . . . . . . . . . . . . . . .   5
    7.  Normative References  . . . . . . . . . . . . . . . . . . . .   5
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   5
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   6
 
 1.  Introduction
 
@@ -97,14 +97,14 @@ Table of Contents
    which is used to refer to fully qualified domain names.  If a ACME
    server wishes to request proof that a user controls a IPv4 or IPv6
    identifier it may create an authorization with the type "ip".  The
-   value field of the identifier must contain the dot decimal notation
-   format of the address as defined in RFC 3986 Section 3.2.2.
+   value field of the identifier must contain the textual form of the
+   address as defined for IPv4 in RFC 1123 [RFC1123] Section 2.1 and for
+   IPv6 in RFC 5952 [RFC5252].
 
 4.  Identifier Validation Challenges
 
    When creating an authorization for a IP identifier the following
    challenge types may be used to perform validation.
-
 
 
 
@@ -199,7 +199,7 @@ Internet-Draft                   ACME-IP                      March 2017
 
    To validate a DNS challenge, the server performs the following steps:
 
-   1.  Compute the SHA-256 digest [FIPS180-4] of the key authorization
+   1.  Compute the SHA-256 digest of the key authorization
 
    2.  Query for PTR records for the IP identifiers IN-ADDR.ARPA mapping
 
@@ -239,6 +239,9 @@ Internet-Draft                   ACME-IP                      March 2017
    XXXX with the label 'reverse-dns', identifier type 'ip', and
    reference RFC XXXX.
 
+   Add the value 'ip' to the identifier type column for 'http' and 'tls-
+   sni'
+
 6.  Security Considerations
 
 6.1.  Certificate Lifetime
@@ -253,6 +256,12 @@ Internet-Draft                   ACME-IP                      March 2017
 
 7.  Normative References
 
+   [FIPS180-4]
+              Department of Commerce, National., "NIST FIPS 180-4,
+              Secure Hash Standard", March 2012,
+              <http://csrc.nist.gov/publications/fips/fips180-4/
+              fips-180-4.pdf>.
+
    [I-D.ietf-acme-acme]
               Barnes, R., Hoffman-Andrews, J., and J. Kasten, "Automatic
               Certificate Management Environment (ACME)", draft-ietf-
@@ -262,10 +271,30 @@ Internet-Draft                   ACME-IP                      March 2017
               STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
               <http://www.rfc-editor.org/info/rfc1034>.
 
+
+
+
+
+
+
+Shoemaker               Expires September 9, 2017               [Page 5]
+
+Internet-Draft                   ACME-IP                      March 2017
+
+
+   [RFC1123]  Braden, R., Ed., "Requirements for Internet Hosts -
+              Application and Support", STD 3, RFC 1123,
+              DOI 10.17487/RFC1123, October 1989,
+              <http://www.rfc-editor.org/info/rfc1123>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC5252]  Bryskin, I. and L. Berger, "OSPF-Based Layer 1 VPN Auto-
+              Discovery", RFC 5252, DOI 10.17487/RFC5252, July 2008,
+              <http://www.rfc-editor.org/info/rfc5252>.
 
 Author's Address
 
@@ -277,4 +306,31 @@ Author's Address
 
 
 
-Shoemaker               Expires September 9, 2017               [Page 5]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Shoemaker               Expires September 9, 2017               [Page 6]
