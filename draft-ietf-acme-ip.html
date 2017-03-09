@@ -447,13 +447,13 @@ Content-Type: application/jose+json
 </ol>
 <p id="rfc.section.4.1.p.11">If all of the above verifications succeed, then the validation is successful.  If no DNS records are found, or DNS records and response payload do not pass these checks, then the validation fails.</p>
 <h1 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2.</a> <a href="#existing-challenges" id="existing-challenges">Existing Challenges</a></h1>
-<p id="rfc.section.4.2.p.1">IP identifiers can be used with the existing HTTP and TLS-SNI challenges from RFC XXX Section XXX by skipping the DNS resolution step and using the relevant IP address as the HTTP or TLS server to directly connect to.</p>
+<p id="rfc.section.4.2.p.1">IP identifiers can be used with the existing HTTP and TLS-SNI challenges from RFC XXX Section XXX by skipping the DNS resolution step and using the relevant IP address as address of the the HTTP or TLS server to connect to.</p>
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a></h1>
 <h1 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1.</a> <a href="#identifier-types" id="identifier-types">Identifier Types</a></h1>
 <p id="rfc.section.5.1.p.1">Adds a new type to the Identifier list defined in Section XXX of RFC XXXX with the label &#8216;ip&#8217; with the reference RFC XXXX.</p>
 <h1 id="rfc.section.5.2"><a href="#rfc.section.5.2">5.2.</a> <a href="#challenge-types" id="challenge-types">Challenge Types</a></h1>
 <p id="rfc.section.5.2.p.1">Adds a new type to the Challenge list defined in Section XXX of RFC XXXX with the label &#8216;reverse-dns&#8217;, identifier type &#8216;ip&#8217;, and reference RFC XXXX.</p>
-<p id="rfc.section.5.2.p.2">Add the value &#8216;ip&#8217; to the identifier type column for &#8216;http&#8217; and &#8216;tls-sni&#8217;</p>
+<p id="rfc.section.5.2.p.2">Add the value &#8216;ip&#8217; to the identifier type column for the &#8216;http&#8217; and &#8216;tls-sni&#8217; challenges.</p>
 <h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a></h1>
 <h1 id="rfc.section.6.1"><a href="#rfc.section.6.1">6.1.</a> <a href="#certificate-lifetime" id="certificate-lifetime">Certificate Lifetime</a></h1>
 <p id="rfc.section.6.1.p.1">Given the often short assignment periods of IP addresses provided by various service providers CAs MAY want to impose much shorter lifetimes for certificates which contain IP identifiers. They MAY also impose restrictions on IP identifiers which are in CIDRs which are assigned to service providers which are known to dynamically assign addresses from these CIDRs to users for indeterminate periods of time.</p>

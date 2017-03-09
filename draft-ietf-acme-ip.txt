@@ -216,8 +216,8 @@ Internet-Draft                   ACME-IP                      March 2017
 
    IP identifiers can be used with the existing HTTP and TLS-SNI
    challenges from RFC XXX Section XXX by skipping the DNS resolution
-   step and using the relevant IP address as the HTTP or TLS server to
-   directly connect to.
+   step and using the relevant IP address as address of the the HTTP or
+   TLS server to connect to.
 
 
 
@@ -239,8 +239,8 @@ Internet-Draft                   ACME-IP                      March 2017
    XXXX with the label 'reverse-dns', identifier type 'ip', and
    reference RFC XXXX.
 
-   Add the value 'ip' to the identifier type column for 'http' and 'tls-
-   sni'
+   Add the value 'ip' to the identifier type column for the 'http' and
+   'tls-sni' challenges.
 
 6.  Security Considerations
 
