@@ -20,21 +20,30 @@ author:
 
 normative:
   RFC1034:
+  RFC1123:
   RFC2119:
+  RFC5252:
   I-D.ietf-acme-acme:
+  FIPS180-4:
+    title: NIST FIPS 180-4, Secure Hash Standard
+    author:
+      name: NIST
+      ins: National Institute of Standards and Technology, U.S. Department of Commerce
+    date: 2012-03
+    target: http://csrc.nist.gov/publications/fips/fips180-4/fips-180-4.pdf
 
 --- abstract
 
 The Automatic Certificate Management Environment (ACME) protocol only defines
 identity validation challenges for DNS host names. This document provides
-guidance on valiadtion of IPv4 and IPv6 addresses which can then be included
+guidance on validation of IPv4 and IPv6 addresses which can then be included
 in X.509 certificates.
 
 --- middle
 
 # Introduction
 
-The identity validation challenges defined in ACME {{ID.ietf-acme-acme}} only
+The identity validation challenges defined in ACME {{I-D.ietf-acme-acme}} only
 apply to validation of DNS host names. In order to allow validation of IPv4
 and IPv6 addresses for inclusion in X.509 certificates this document defines
 a new challenge and provides guidance on how already defined challenges can
@@ -49,12 +58,12 @@ requirement levels for compliant ACME-Wildcard implementations.
 
 # IP Identifier
 
-ACME {{ID.ietf-acme-acme}} only defines the identifier type "dns" which is used
+ACME {{I-D.ietf-acme-acme}} only defines the identifier type "dns" which is used
 to refer to fully qualified domain names. If a ACME server wishes to request
 proof that a user controls a IPv4 or IPv6 identifier it may create an
 authorization with the type "ip". The value field of the identifier must contain
-the dot decimal notation format of the address as defined in RFC 3986 Section
-3.2.2.
+the textual form of the address as defined for IPv4 in RFC 1123 {{RFC1123}}
+Section 2.1 and for IPv6 in RFC 5952 {{RFC5252}}.
 
 # Identifier Validation Challenges
 
@@ -144,7 +153,7 @@ response to the POST request in which the client sent the challenge.
 
 To validate a DNS challenge, the server performs the following steps:
 
-1. Compute the SHA-256 digest [FIPS180-4] of the key authorization
+1. Compute the SHA-256 digest of the key authorization
 2. Query for PTR records for the IP identifiers IN-ADDR.ARPA mapping
 2. Query for TXT records for the validation domain name
 3. Verify that the contents of one of the TXT records matches the digest value
@@ -157,7 +166,7 @@ checks, then the validation fails.
 
 IP identifiers can be used with the existing HTTP and TLS-SNI challenges from
 RFC XXX Section XXX by skipping the DNS resolution step and using the relevant
-IP address as the HTTP or TLS server to directly connect to.
+IP address as address of the the HTTP or TLS server to connect to.
 
 # IANA Considerations
 
@@ -170,6 +179,9 @@ the label 'ip' with the reference RFC XXXX.
 
 Adds a new type to the Challenge list defined in Section XXX of RFC XXXX with
 the label 'reverse-dns', identifier type 'ip', and reference RFC XXXX.
+
+Add the value 'ip' to the identifier type column for the 'http' and 'tls-sni'
+challenges.
 
 # Security Considerations
 
