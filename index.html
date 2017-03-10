@@ -297,9 +297,9 @@ address {
 
   <meta name="dct.creator" content="Shoemaker, R." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-acme-ip-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-3-08" />
-  <meta name="dct.abstract" content="The Automatic Certificate Management Environment (ACME) protocol only defines identity validation challenges for DNS host names. This document provides guidance on validation of IPv4 and IPv6 addresses which can then be included in X.509 certificates." />
-  <meta name="description" content="The Automatic Certificate Management Environment (ACME) protocol only defines identity validation challenges for DNS host names. This document provides guidance on validation of IPv4 and IPv6 addresses which can then be included in X.509 certificates." />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-3-10" />
+  <meta name="dct.abstract" content="This document specifies identifiers and challenges required to enable the Automated Certificate Management Environment (ACME) to issue certificates for IP addresses." />
+  <meta name="description" content="This document specifies identifiers and challenges required to enable the Automated Certificate Management Environment (ACME) to issue certificates for IP addresses." />
 
 </head>
 
@@ -318,10 +318,10 @@ address {
 </tr>
 <tr>
   <td class="left">Intended status: Standards Track</td>
-  <td class="right">March 08, 2017</td>
+  <td class="right">March 10, 2017</td>
 </tr>
 <tr>
-  <td class="left">Expires: September 9, 2017</td>
+  <td class="left">Expires: September 11, 2017</td>
   <td class="right"></td>
 </tr>
 
@@ -335,14 +335,14 @@ address {
   <h1 id="rfc.abstract">
   <a href="#rfc.abstract">Abstract</a>
 </h1>
-<p>The Automatic Certificate Management Environment (ACME) protocol only defines identity validation challenges for DNS host names. This document provides guidance on validation of IPv4 and IPv6 addresses which can then be included in X.509 certificates.</p>
+<p>This document specifies identifiers and challenges required to enable the Automated Certificate Management Environment (ACME) to issue certificates for IP addresses.</p>
 <h1 id="rfc.status">
   <a href="#rfc.status">Status of This Memo</a>
 </h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 9, 2017.</p>
+<p>This Internet-Draft will expire on September 11, 2017.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -372,22 +372,22 @@ address {
   </ul>
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a></h1>
-<p id="rfc.section.1.p.1">The identity validation challenges defined in ACME <a href="#I-D.ietf-acme-acme">[I-D.ietf-acme-acme]</a> only apply to validation of DNS host names. In order to allow validation of IPv4 and IPv6 addresses for inclusion in X.509 certificates this document defines a new challenge and provides guidance on how already defined challenges can be used with these identifiers.</p>
+<p id="rfc.section.1.p.1">The Automatic Certificate Management Environment (ACME) <a href="#I-D.ietf-acme-acme">[I-D.ietf-acme-acme]</a> only defines challenges for validating control of DNS host name identifiers which limits its use to being used for issuing certificates for these identifiers.  In order to allow validation of IPv4 and IPv6 identifiers for inclusion in X.509 certificates this document defines a new challenge type and specifies how challenges defined in the original ACME specification can be used to validate IP identifiers.</p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#terminology" id="terminology">Terminology</a></h1>
 <p id="rfc.section.2.p.1">In this document, the key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; are to be interpreted as described in BCP 14, RFC 2119 <a href="#RFC2119">[RFC2119]</a> and indicate requirement levels for compliant ACME-Wildcard implementations.</p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#ip-identifier" id="ip-identifier">IP Identifier</a></h1>
-<p id="rfc.section.3.p.1">ACME <a href="#I-D.ietf-acme-acme">[I-D.ietf-acme-acme]</a> only defines the identifier type &#8220;dns&#8221; which is used to refer to fully qualified domain names. If a ACME server wishes to request proof that a user controls a IPv4 or IPv6 identifier it may create an authorization with the type &#8220;ip&#8221;. The value field of the identifier must contain the textual form of the address as defined for IPv4 in RFC 1123 <a href="#RFC1123">[RFC1123]</a> Section 2.1 and for IPv6 in RFC 5952 <a href="#RFC5252">[RFC5252]</a>.</p>
+<p id="rfc.section.3.p.1">ACME only defines the identifier type &#8220;dns&#8221; which is used to refer to fully qualified domain names. If a ACME server wishes to request proof that a user controls a IPv4 or IPv6 identifier it MUST create an authorization with the identifier type &#8220;ip&#8221;. The value field of the identifier MUST contain the textual form of the address as defined for IPv4 in RFC 1123 <a href="#RFC1123">[RFC1123]</a> Section 2.1 and for IPv6 in RFC 4291 <a href="#RFC4291">[RFC4291]</a> Section 2.2.</p>
 <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#identifier-validation-challenges" id="identifier-validation-challenges">Identifier Validation Challenges</a></h1>
-<p id="rfc.section.4.p.1">When creating an authorization for a IP identifier the following challenge types may be used to perform validation.</p>
+<p id="rfc.section.4.p.1">When creating an authorization for a identifier with the type &#8220;ip&#8221; the following challenge types may be used to perform validation.</p>
 <h1 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1.</a> <a href="#reverse-dns" id="reverse-dns">Reverse DNS</a></h1>
-<p id="rfc.section.4.1.p.1">With Reverse DNS validation the client proves control of an IP address by provisioning a TXT resource record containing a designated value for a specific validation domain name.</p>
+<p id="rfc.section.4.1.p.1">With Reverse DNS validation the client proves control of an IP address by provisioning a TXT resource record containing a designated value for a specific validation domain name constructed using the value of the PTR record for the reverse mapping of the address.</p>
 <p/>
 
 <dl>
   <dt>type (required, string):</dt>
-  <dd style="margin-left: 8">The string &#8220;reverse-dns-01&#8221;</dd>
+  <dd style="margin-left: 8">The string &#8220;reverse-dns-01&#8221;.</dd>
   <dt>token (required, string):</dt>
-  <dd style="margin-left: 8">A random value that uniquely identifies the challenge.  This value MUST have at least 128 bits of entropy, in order to prevent an attacker from guessing it.  It MUST NOT contain any characters outside the base64url alphabet, including padding characters (&#8220;=&#8221;).</dd>
+  <dd style="margin-left: 8">A random value that uniquely identifies the challenge.  This value MUST have at least 128 bits of entropy, in order to prevent an attacker from guessing it.  It MUST NOT contain any characters outside the base64url <a href="#RFC4648">[RFC4648]</a> alphabet, including padding characters (&#8220;=&#8221;).</dd>
 </dl>
 <pre>
 GET /acme/authz/1234/2 HTTP/1.1
@@ -401,21 +401,22 @@ HTTP/1.1 200 OK
   "token": "evaGxfADs6pSRb2LAv9IZf17Dt3juxGJ-PCt92wr-oA"
 }
 </pre>
-<p id="rfc.section.4.1.p.3">A client responds to this challenge by constructing a key authorization from the &#8220;token&#8221; value provided in the challenge and the client&#8217;s account key.  The client then computes the SHA-256 digest <a href="#FIPS180-4">[FIPS180-4]</a> of the key authorization.</p>
-<p id="rfc.section.4.1.p.4">The record provisioned to the DNS is the base64url encoding of this digest. The client constructs the validation domain name by prepending the label &#8220;_acme-challenge&#8221; to the domain name referenced in the PTR resource record for the IN-ADDR.ARPA <a href="#RFC1034">[RFC1034]</a> or IP6.ARPA <a href="#RFC3596">[RFC3596]</a> mapping of the IP address.  The client then provisions a TXT record with the digest for this name. For example, if the IP address being validated is &#8220;192.0.2.1&#8221; and its IN-ADDR.ARPA mapping had the following PTR record:</p>
+<p id="rfc.section.4.1.p.3">A client responds to this challenge by constructing a key authorization from the &#8220;token&#8221; value provided in the challenge and the client&#8217;s ACME account key.  The client then computes the SHA-256 digest <a href="#FIPS180-4">[FIPS180-4]</a> of the key authorization.  The record provisioned to the authoritative DNS server is the base64url encoding of this digest.</p>
+<p id="rfc.section.4.1.p.4">The client constructs the validation domain name by prepending the label &#8220;_acme-challenge&#8221; to the domain name referenced in the PTR resource record for the IN-ADDR.ARPA <a href="#RFC1034">[RFC1034]</a> or IP6.ARPA <a href="#RFC3596">[RFC3596]</a> mapping of the IP address.  The client then provisions a TXT record with the digest for this name.</p>
+<p id="rfc.section.4.1.p.5">For example, if the IP address being validated is &#8220;192.0.2.1&#8221; and its IN-ADDR.ARPA mapping had the following PTR record:</p>
 <pre>
 1.2.0.192.in-addr.arpa. 300 IN PTR example.com
 </pre>
-<p id="rfc.section.4.1.p.5">then the client would provision the following DNS record:</p>
+<p id="rfc.section.4.1.p.6">then the client would provision the following DNS record:</p>
 <pre>
 _acme-challenge.example.com. 300 IN TXT "gfj9Xq...Rg85nM"
 </pre>
-<p id="rfc.section.4.1.p.6">The response to the Reverse DNS challenge provides the computed key authorization to acknowledge that the client is ready to fulfill this challenge.</p>
+<p id="rfc.section.4.1.p.7">The response to the Reverse DNS challenge provides the computed key authorization to acknowledge that the client is ready to fulfill this challenge.</p>
 <p/>
 
 <dl>
   <dt>keyAuthorization (required, string):</dt>
-  <dd style="margin-left: 8">The key authorization for this challenge.  This value MUST match the token from the challenge and the client&#8217;s account key.</dd>
+  <dd style="margin-left: 8">The key authorization for this challenge.</dd>
 </dl>
 <pre>
 POST /acme/authz/1234/2
@@ -435,28 +436,28 @@ Content-Type: application/jose+json
   "signature": "Q1bURgJoEslbD1c5...3pYdSMLio57mQNN4"
 }
 </pre>
-<p id="rfc.section.4.1.p.8">On receiving a response, the server MUST verify that the key authorization in the response matches the &#8220;token&#8221; value in the challenge and the client&#8217;s account key.  If they do not match, then the server MUST return an HTTP error in response to the POST request in which the client sent the challenge.</p>
-<p id="rfc.section.4.1.p.9">To validate a DNS challenge, the server performs the following steps:</p>
+<p id="rfc.section.4.1.p.9">On receiving a response, the server MUST verify that the key authorization in the response matches the &#8220;token&#8221; value in the challenge and the client&#8217;s ACME account key.  If they do not match, then the server MUST return an HTTP error in response to the POST request in which the client sent the challenge.</p>
+<p id="rfc.section.4.1.p.10">To validate a DNS challenge, the server performs the following steps:</p>
 <p/>
 
 <ol>
   <li>Compute the SHA-256 digest of the key authorization</li>
-  <li>Query for PTR records for the IP identifiers relevant mapping based on its version</li>
-  <li>Query for TXT records for the validation domain name</li>
+  <li>Query for a PTR record for the IP identifiers relevant reverse mapping based on its version</li>
+  <li>Query for TXT records for the computed validation domain name</li>
   <li>Verify that the contents of one of the TXT records matches the digest value</li>
 </ol>
-<p id="rfc.section.4.1.p.11">If all of the above verifications succeed, then the validation is successful.  If no DNS records are found, or DNS records and response payload do not pass these checks, then the validation fails.</p>
+<p id="rfc.section.4.1.p.12">If all of the above verifications succeed, then the validation is successful.  If no PTR or TXT DNS records are found, or the returned TXT records do not contain the expected key authorization digest, then the validation fails.</p>
 <h1 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2.</a> <a href="#existing-challenges" id="existing-challenges">Existing Challenges</a></h1>
-<p id="rfc.section.4.2.p.1">IP identifiers can be used with the existing HTTP and TLS-SNI challenges from RFC XXX Section XXX by skipping the DNS resolution step and using the relevant IP address as address of the the HTTP or TLS server to connect to.</p>
+<p id="rfc.section.4.2.p.1">IP identifiers can be used with the existing &#8220;http-01&#8221; and &#8220;tls-sni-02&#8221; challenges from RFC XXX Section XXX by skipping the DNS resolution step and connecting to the HTTP or TLS server, respectively, located at the IP address contained in the identifier.</p>
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a></h1>
 <h1 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1.</a> <a href="#identifier-types" id="identifier-types">Identifier Types</a></h1>
-<p id="rfc.section.5.1.p.1">Adds a new type to the Identifier list defined in Section XXX of RFC XXXX with the label &#8216;ip&#8217; with the reference RFC XXXX.</p>
+<p id="rfc.section.5.1.p.1">Adds a new type to the Identifier list defined in Section XXX of RFC XXXX with the label &#8220;ip&#8221; and reference RFC XXXX.</p>
 <h1 id="rfc.section.5.2"><a href="#rfc.section.5.2">5.2.</a> <a href="#challenge-types" id="challenge-types">Challenge Types</a></h1>
-<p id="rfc.section.5.2.p.1">Adds a new type to the Challenge list defined in Section XXX of RFC XXXX with the label &#8216;reverse-dns&#8217;, identifier type &#8216;ip&#8217;, and reference RFC XXXX.</p>
-<p id="rfc.section.5.2.p.2">Add the value &#8216;ip&#8217; to the identifier type column for the &#8216;http&#8217; and &#8216;tls-sni&#8217; challenges.</p>
+<p id="rfc.section.5.2.p.1">Adds a new type to the Challenge list defined in Section XXX of RFC XXXX with the label &#8220;reverse-dns&#8221;, identifier type &#8220;ip&#8221;, and reference RFC XXXX.</p>
+<p id="rfc.section.5.2.p.2">Add the value &#8220;ip&#8221; to the identifier type column for the &#8220;http-01&#8221; and &#8220;tls-sni-02&#8221; challenges.</p>
 <h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a></h1>
 <h1 id="rfc.section.6.1"><a href="#rfc.section.6.1">6.1.</a> <a href="#certificate-lifetime" id="certificate-lifetime">Certificate Lifetime</a></h1>
-<p id="rfc.section.6.1.p.1">Given the often short assignment periods of IP addresses provided by various service providers CAs MAY want to impose much shorter lifetimes for certificates which contain IP identifiers. They MAY also impose restrictions on IP identifiers which are in CIDRs which are assigned to service providers which are known to dynamically assign addresses from these CIDRs to users for indeterminate periods of time.</p>
+<p id="rfc.section.6.1.p.1">Given the often short delegation periods of IP addresses provided by various service providers CAs MAY want to impose shorter lifetimes for certificates which contain IP identifiers. They MAY also impose restrictions on IP identifiers which are in CIDRs known to be assigned to service providers who dynamically assign addresses to users for indeterminate periods of time.</p>
 <h1 id="rfc.references"><a href="#rfc.references">7.</a> Normative References</h1>
 <table>
   <tbody>
@@ -498,9 +499,15 @@ Content-Type: application/jose+json
     </tr>
     <tr>
       <td class="reference">
-        <b id="RFC5252">[RFC5252]</b>
+        <b id="RFC4291">[RFC4291]</b>
       </td>
-      <td class="top"><a>Bryskin, I.</a> and <a>L. Berger</a>, "<a href="http://tools.ietf.org/html/rfc5252">OSPF-Based Layer 1 VPN Auto-Discovery</a>", RFC 5252, DOI 10.17487/RFC5252, July 2008.</td>
+      <td class="top"><a>Hinden, R.</a> and <a>S. Deering</a>, "<a href="http://tools.ietf.org/html/rfc4291">IP Version 6 Addressing Architecture</a>", RFC 4291, DOI 10.17487/RFC4291, February 2006.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC4648">[RFC4648]</b>
+      </td>
+      <td class="top"><a>Josefsson, S.</a>, "<a href="http://tools.ietf.org/html/rfc4648">The Base16, Base32, and Base64 Data Encodings</a>", RFC 4648, DOI 10.17487/RFC4648, October 2006.</td>
     </tr>
   </tbody>
 </table>
@@ -515,7 +522,7 @@ Content-Type: application/jose+json
 		<span class="family-name">Shoemaker</span>
 	  </span>
 	</span>
-	<span class="org vcardline">ISRG</span>
+	<span class="org vcardline">Internet Security Research Group</span>
 	<span class="adr">
 	  
 	  <span class="vcardline">
