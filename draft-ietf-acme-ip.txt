@@ -4,8 +4,8 @@
 
 ACME Working Group                                          R. Shoemaker
 Internet-Draft                                                      ISRG
-Intended status: Standards Track                          March 10, 2017
-Expires: September 11, 2017
+Intended status: Standards Track                          March 20, 2017
+Expires: September 21, 2017
 
 
                 ACME IP Identifier Validation Extension
@@ -32,7 +32,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 11, 2017.
+   This Internet-Draft will expire on September 21, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Shoemaker              Expires September 11, 2017               [Page 1]
+Shoemaker              Expires September 21, 2017               [Page 1]
 
 Internet-Draft                   ACME-IP                      March 2017
 
@@ -97,27 +97,29 @@ Table of Contents
 
    ACME only defines the identifier type "dns" which is used to refer to
    fully qualified domain names.  If a ACME server wishes to request
-   proof that a user controls a IPv4 or IPv6 identifier it MUST create
-   an authorization with the identifier type "ip".  The value field of
-   the identifier MUST contain the textual form of the address as
-   defined for IPv4 in RFC 1123 [RFC1123] Section 2.1 and for IPv6 in
-   RFC 4291 [RFC4291] Section 2.2.
+   proof that a user controls a IPv4 or IPv6 address it MUST create an
+   authorization with the identifier type "ip".  The value field of the
+   identifier MUST contain the textual form of the address as defined
+   for IPv4 in RFC 1123 [RFC1123] Section 2.1 and for IPv6 in RFC 4291
+   [RFC4291] Section 2.2.
+
+   An identifier for the IPv6 address 2001:db8::1 would be formatted
+   like this
 
 
 
 
-
-
-
-Shoemaker              Expires September 11, 2017               [Page 2]
+Shoemaker              Expires September 21, 2017               [Page 2]
 
 Internet-Draft                   ACME-IP                      March 2017
 
 
+   {"type": "ip", "value": "2001:db8::1"}
+
 4.  Identifier Validation Challenges
 
    When creating an authorization for a identifier with the type "ip"
-   the following challenge types may be used to perform validation.
+   the following challenge types MAY be used to perform validation.
 
 4.1.  Reverse DNS
 
@@ -158,17 +160,17 @@ Internet-Draft                   ACME-IP                      March 2017
    mapping of the IP address.  The client then provisions a TXT record
    with the digest for this name.
 
-   For example, if the IP address being validated is "192.0.2.1" and its
-   IN-ADDR.ARPA mapping had the following PTR record:
-
-   1.2.0.192.in-addr.arpa. 300 IN PTR example.com
+   For example, if the IP address being validated is 2001:db8::1 and its
+   IP6.ARPA mapping had the following PTR record:
 
 
 
-Shoemaker              Expires September 11, 2017               [Page 3]
+Shoemaker              Expires September 21, 2017               [Page 3]
 
 Internet-Draft                   ACME-IP                      March 2017
 
+
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa. 300 IN PTR example.com
 
    then the client would provision the following DNS record:
 
@@ -216,16 +218,16 @@ Internet-Draft                   ACME-IP                      March 2017
    4.  Verify that the contents of one of the TXT records matches the
        digest value
 
-   If all of the above verifications succeed, then the validation is
-   successful.  If no PTR or TXT DNS records are found, or the returned
 
 
 
-Shoemaker              Expires September 11, 2017               [Page 4]
+Shoemaker              Expires September 21, 2017               [Page 4]
 
 Internet-Draft                   ACME-IP                      March 2017
 
 
+   If all of the above verifications succeed, then the validation is
+   successful.  If no PTR or TXT DNS records are found, or the returned
    TXT records do not contain the expected key authorization digest,
    then the validation fails.
 
@@ -234,7 +236,11 @@ Internet-Draft                   ACME-IP                      March 2017
    IP identifiers can be used with the existing "http-01" and "tls-sni-
    02" challenges from RFC XXX Section XXX by skipping the DNS
    resolution step and connecting to the HTTP or TLS server,
-   respectively, located at the IP address contained in the identifier.
+   respectively, located at the IP address represented by the
+   identifier.
+
+   The existing "dns-01" challenge MUST NOT be used to validate IP
+   identifiers.
 
 5.  IANA Considerations
 
@@ -246,7 +252,7 @@ Internet-Draft                   ACME-IP                      March 2017
 5.2.  Challenge Types
 
    Adds a new type to the Challenge list defined in Section XXX of RFC
-   XXXX with the label "reverse-dns", identifier type "ip", and
+   XXXX with the label "reverse-dns-01", identifier type "ip", and
    reference RFC XXXX.
 
    Add the value "ip" to the identifier type column for the "http-01"
@@ -265,27 +271,27 @@ Internet-Draft                   ACME-IP                      March 2017
 
 7.  Normative References
 
+
+
+
+
+
+
+Shoemaker              Expires September 21, 2017               [Page 5]
+
+Internet-Draft                   ACME-IP                      March 2017
+
+
    [FIPS180-4]
               Department of Commerce, National., "NIST FIPS 180-4,
               Secure Hash Standard", March 2012,
               <http://csrc.nist.gov/publications/fips/fips180-4/
               fips-180-4.pdf>.
 
-
-
-
-
-
-
-Shoemaker              Expires September 11, 2017               [Page 5]
-
-Internet-Draft                   ACME-IP                      March 2017
-
-
    [I-D.ietf-acme-acme]
               Barnes, R., Hoffman-Andrews, J., and J. Kasten, "Automatic
               Certificate Management Environment (ACME)", draft-ietf-
-              acme-acme-05 (work in progress), February 2017.
+              acme-acme-06 (work in progress), March 2017.
 
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
               STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
@@ -327,10 +333,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-Shoemaker              Expires September 11, 2017               [Page 6]
+Shoemaker              Expires September 21, 2017               [Page 6]
