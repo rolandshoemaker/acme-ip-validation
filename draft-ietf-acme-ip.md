@@ -64,15 +64,21 @@ requirement levels for compliant ACME-Wildcard implementations.
 
 ACME only defines the identifier type "dns" which is used to refer to fully
 qualified domain names. If a ACME server wishes to request proof that a user
-controls a IPv4 or IPv6 identifier it MUST create an authorization with the
+controls a IPv4 or IPv6 address it MUST create an authorization with the
 identifier type "ip". The value field of the identifier MUST contain the textual
 form of the address as defined for IPv4 in RFC 1123 {{RFC1123}} Section 2.1 and
 for IPv6 in RFC 4291 {{RFC4291}} Section 2.2.
 
+An identifier for the IPv6 address 2001:db8::1 would be formatted like this
+
+~~~~~~~~~~
+{"type": "ip", "value": "2001:db8::1"}
+~~~~~~~~~~
+
 # Identifier Validation Challenges
 
 When creating an authorization for a identifier with the type "ip" the following
-challenge types may be used to perform validation.
+challenge types MAY be used to perform validation.
 
 ## Reverse DNS
 
@@ -114,11 +120,11 @@ The client constructs the validation domain name by prepending the label
 the IN-ADDR.ARPA {{!RFC1034}} or IP6.ARPA {{!RFC3596}} mapping of the IP address.
 The client then provisions a TXT record with the digest for this name.
 
-For example, if the IP address being validated is "192.0.2.1" and its IN-ADDR.ARPA
+For example, if the IP address being validated is 2001:db8::1 and its IP6.ARPA
 mapping had the following PTR record:
 
 ~~~~~~~~~~
-1.2.0.192.in-addr.arpa. 300 IN PTR example.com
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa. 300 IN PTR example.com
 ~~~~~~~~~~
 
 then the client would provision the following DNS record:
@@ -173,8 +179,10 @@ contain the expected key authorization digest, then the validation fails.
 
 IP identifiers can be used with the existing "http-01" and "tls-sni-02" challenges
 from RFC XXX Section XXX by skipping the DNS resolution step and connecting to
-the HTTP or TLS server, respectively, located at the IP address contained in the
+the HTTP or TLS server, respectively, located at the IP address represented by the
 identifier.
+
+The existing "dns-01" challenge MUST NOT be used to validate IP identifiers.
 
 # IANA Considerations
 
