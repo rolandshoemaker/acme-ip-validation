@@ -66,10 +66,10 @@ ACME only defines the identifier type "dns" which is used to refer to fully
 qualified domain names. If a ACME server wishes to request proof that a user
 controls a IPv4 or IPv6 address it MUST create an authorization with the
 identifier type "ip". The value field of the identifier MUST contain the textual
-form of the address as defined for IPv4 in RFC 1123 {{RFC1123}} Section 2.1 and
-for IPv6 in RFC 4291 {{RFC4291}} Section 2.2.
+form of the address as defined in RFC 1123 {{RFC1123}} Section 2.1 for IPv4 and
+in RFC 4291 {{RFC4291}} Section 2.2 for IPv6.
 
-An identifier for the IPv6 address 2001:db8::1 would be formatted like this
+An identifier for the IPv6 address 2001:db8::1 would be formatted like so:
 
 ~~~~~~~~~~
 {"type": "ip", "value": "2001:db8::1"}
@@ -117,8 +117,8 @@ of this digest.
 
 The client constructs the validation domain name by prepending the label
 "_acme-challenge" to the domain name referenced in the PTR resource record for
-the IN-ADDR.ARPA {{!RFC1034}} or IP6.ARPA {{!RFC3596}} mapping of the IP address.
-The client then provisions a TXT record with the digest for this name.
+the IN-ADDR.ARPA {{!RFC1034}} or IP6.ARPA {{!RFC3596}} reverse mapping of the IP
+address. The client then provisions a TXT record with the digest for this name.
 
 For example, if the IP address being validated is 2001:db8::1 and its IP6.ARPA
 mapping had the following PTR record:
@@ -177,10 +177,10 @@ contain the expected key authorization digest, then the validation fails.
 
 ## Existing Challenges
 
-IP identifiers can be used with the existing "http-01" and "tls-sni-02" challenges
-from RFC XXX Section XXX by skipping the DNS resolution step and connecting to
-the HTTP or TLS server, respectively, located at the IP address represented by the
-identifier.
+IP identifiers MAY be used with the existing "http-01" and "tls-sni-02" challenges
+from RFC XXXX Sections XXX and XXX respectively. To use IP identifiers with these
+challenges their initial DNS resolution step MUST be skipped and the address used
+for validation MUST be the value of the identifier.
 
 The existing "dns-01" challenge MUST NOT be used to validate IP identifiers.
 
@@ -203,7 +203,7 @@ Add the value "ip" to the identifier type column for the "http-01" and
 
 ## Certificate Lifetime
 
-Given the often short delegation periods of IP addresses provided by various
+Given the often short delegation periods for IP addresses provided by various
 service providers CAs MAY want to impose shorter lifetimes for certificates
 which contain IP identifiers. They MAY also impose restrictions on IP
 identifiers which are in CIDRs known to be assigned to service providers who
