@@ -1,12 +1,12 @@
 ---
 title: "ACME IP Identifier Validation Extension"
 abbrev: ACME-IP
-docname: draft-shoemaker-acme-ip-latest
+docname: draf-ietf-acme-ip-latest
 category: std
 
 ipr: trust200902
 area: General
-# workgroup: ACME Working Group
+workgroup: ACME Working Group
 
 stand_alone: yes
 pi: [toc, sortrefs, symrefs]
@@ -26,6 +26,7 @@ normative:
   RFC3596:
   RFC4291:
   RFC4648:
+  RFC7230:
   I-D.ietf-acme-acme:
   FIPS180-4:
     title: NIST FIPS 180-4, Secure Hash Standard
@@ -180,7 +181,9 @@ contain the expected key authorization digest, then the validation fails.
 IP identifiers MAY be used with the existing "http-01" and "tls-sni-02" challenges
 from RFC XXXX Sections XXX and XXX respectively. To use IP identifiers with these
 challenges their initial DNS resolution step MUST be skipped and the address used
-for validation MUST be the value of the identifier.
+for validation MUST be the value of the identifier. For the "http-01" challenge
+the Host header should be set to the IP address being used for validation per
+RFC 7230.
 
 The existing "dns-01" challenge MUST NOT be used to validate IP identifiers.
 

@@ -3,8 +3,8 @@
 This is the working area for the Working Group internet-draft, "ACME IP Identifier Validation Extension".
 
 * [Editor's copy](https://rolandshoemaker.github.io/acme-ip-validation/)
-* [Working Group Draft] (https://tools.ietf.org/html/draft-shoemaker-acme-ip)
-* [Compare Working Group Draft and Editor's copy] (https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-shoemaker-acme-ip.txt&url2=https://rolandshoemaker.github.io/acme-ip-validation/draft-shoemaker-acme-ip.txt)
+* [Working Group Draft] (https://tools.ietf.org/html/draft-ietf-acme-ip)
+* [Compare Working Group Draft and Editor's copy] (https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-ietf-acme-ip.txt&url2=https://rolandshoemaker.github.io/acme-ip-validation/draft-ietf-acme-ip.txt)
 
 
 ## Building the Draft
