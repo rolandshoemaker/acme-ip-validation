@@ -1,7 +1,7 @@
 ---
 title: "ACME IP Identifier Validation Extension"
 abbrev: ACME-IP
-docname: draf-ietf-acme-ip-latest
+docname: draft-ietf-acme-ip-latest
 category: std
 
 ipr: trust200902
