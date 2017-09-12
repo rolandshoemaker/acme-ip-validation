@@ -28,6 +28,7 @@ normative:
   RFC4648:
   RFC7230:
   I-D.ietf-acme-acme:
+  I-D.shoemaker-caa-ip:
   FIPS180-4:
     title: NIST FIPS 180-4, Secure Hash Standard
     author:
@@ -167,7 +168,7 @@ response to the POST request in which the client sent the challenge.
 To validate a DNS challenge, the server performs the following steps:
 
 1. Compute the SHA-256 digest of the key authorization
-2. Query for a PTR record for the IP identifiers relevant reverse mapping based
+2. Query for a PTR record for the IP identifier's relevant reverse mapping based
    on its version
 2. Query for TXT records for the computed validation domain name
 3. Verify that the contents of one of the TXT records matches the digest value
@@ -179,11 +180,11 @@ contain the expected key authorization digest, then the validation fails.
 ## Existing Challenges
 
 IP identifiers MAY be used with the existing "http-01" and "tls-sni-02" challenges
-from RFC XXXX Sections XXX and XXX respectively. To use IP identifiers with these
-challenges their initial DNS resolution step MUST be skipped and the address used
-for validation MUST be the value of the identifier. For the "http-01" challenge
-the Host header should be set to the IP address being used for validation per
-RFC 7230.
+from draft-ietf-acme-acme Sections 8.3 and 8.4 respectively. To use IP identifiers
+with these challenges their initial DNS resolution step MUST be skipped and the
+address used for validation MUST be the value of the identifier. For the "http-01"
+challenge the Host header should be set to the IP address being used for
+validation per RFC 7230.
 
 The existing "dns-01" challenge MUST NOT be used to validate IP identifiers.
 
@@ -191,13 +192,13 @@ The existing "dns-01" challenge MUST NOT be used to validate IP identifiers.
 
 ## Identifier Types
 
-Adds a new type to the Identifier list defined in Section XXX of RFC XXXX with
-the label "ip" and reference RFC XXXX.
+Adds a new type to the Identifier list defined in Section 9.7.5 of draft-ietf-acme-acme with
+the label "ip" and reference draft-ietf-acme-ip.
 
 ## Challenge Types
 
-Adds a new type to the Challenge list defined in Section XXX of RFC XXXX with
-the label "reverse-dns-01", identifier type "ip", and reference RFC XXXX.
+Adds a new type to the Challenge list defined in Section 9.7.6 of draft-ietf-acme-acme with
+the label "reverse-dns-01", identifier type "ip", and reference draft-ietf-acme-ip.
 
 Add the value "ip" to the identifier type column for the "http-01" and
 "tls-sni-02" challenges.
@@ -211,3 +212,20 @@ service providers CAs MAY want to impose shorter lifetimes for certificates
 which contain IP identifiers. They MAY also impose restrictions on IP
 identifiers which are in CIDRs known to be assigned to service providers who
 dynamically assign addresses to users for indeterminate periods of time.
+
+## CAA Processing
+
+It is RECOMMENDED that CAs that issue certificates for IP addresses using the
+mechanisms defined in this document check for CAA records for those IP addresses
+before issuance. As RFC 6844 {{!RFC6844}} only defines a mechanism for looking
+up the relevant Resource Record set for DNS names they should instead use the
+mechanism defined in draft-shoemaker-caa-ip {{I-D.shoemaker-caa-ip}}.
+
+CAA records can be used by holders of CIDRs that are dynamically assigned to
+prevent issuance of certificates for addresses in these ranges to users without
+control of the reverse mapping DNS zones for them.
+
+# Acknowledgments
+
+The author would like to thank those who contributed to this document and
+offered editorial advice, especially: Jacob Hoffman-Andrews and Daniel McCarney.
