@@ -45,7 +45,7 @@ This document specifies identifiers and challenges required to enable the Automa
 
 # Introduction
 
-The Automatic Certificate Management Environment (ACME) {{I-D.ietf-acme-acme}} only defines challenges for validating control of DNS host name identifiers which limits its use to being used for issuing certificates for these identifiers. In order to allow validation of IPv4 and IPv6 identifiers for inclusion in X.509 certificates this document specifies how challenges defined in the original ACME specification can be used to validate IP identifiers.
+The Automatic Certificate Management Environment (ACME) {{I-D.ietf-acme-acme}} only defines challenges for validating control of DNS host name identifiers which limits its use to being used for issuing certificates for DNS identifiers. In order to allow validation of IPv4 and IPv6 identifiers for inclusion in X.509 certificates this document specifies how challenges defined in the original ACME specification can be used to validate IP identifiers.
 
 # Terminology
 
@@ -63,7 +63,7 @@ An identifier for the IPv6 address 2001:db8::1 would be formatted like so:
 
 # Identifier Validation Challenges
 
-IP identifiers MAY be used with the existing "http-01" and "tls-sni-02" challenges from {{I-D.ietf-acme-acme}} Sections 8.3 and 8.4 respectively. To use IP identifiers with these challenges their initial DNS resolution step MUST be skipped and the address used for validation MUST be the value of the identifier. For the "http-01" challenge the Host header should be set to the IP address being used for validation per {{RFC7230}}.
+IP identifiers MAY be used with the existing "http-01" and "tls-sni-02" challenges from {{I-D.ietf-acme-acme}} Sections 8.3 and 8.4 respectively. To use IP identifiers with these challenges their initial DNS resolution step MUST be skipped and the IP address used for validation MUST be the value of the identifier. For the "http-01" challenge the Host header MUST be set to the IP address being used for validation per {{RFC7230}}.
 
 The existing "dns-01" challenge MUST NOT be used to validate IP identifiers.
 
