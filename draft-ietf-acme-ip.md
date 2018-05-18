@@ -79,8 +79,6 @@ Add the value "ip" to the identifier type column for the "http-01" and "tls-sni-
 
 # Security Considerations
 
-## Certificate Lifetime
-
 Given the often short delegation periods for IP addresses provided by various service providers CAs MAY want to impose shorter lifetimes for certificates which contain IP identifiers. They MAY also impose restrictions on IP identifiers which are in CIDRs known to be assigned to service providers who dynamically assign addresses to users for indeterminate periods of time.
 
 # Acknowledgments
