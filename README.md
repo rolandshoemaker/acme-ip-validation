@@ -1,11 +1,10 @@
-# {DRAFT_TITLE}
+# 
 
-This is the working area for the {DRAFT_STATUS} internet-draft, "{DRAFT_TITLE}".
+This is the working area for the IETF [ACME Working Group](https://datatracker.ietf.org/wg/acme/documents/) Internet-Draft, "".
 
-* [Editor's copy](https://{GITHUB_USER}.github.io/{GITHUB_REPO}/)
-* [{DRAFT_STATUS} Draft] (https://tools.ietf.org/html/{DRAFT_NAME})
-* [Compare {DRAFT_STATUS} Draft and Editor's copy] (https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/{DRAFT_NAME}.txt&url2=https://{GITHUB_USER}.github.io/{GITHUB_REPO}/{DRAFT_NAME}.txt)
-
+* [Editor's Copy](https://rolandshoemaker.github.io/acme-ip-validation/#go.draft-ietf-acme-ip.html)
+* [Working Group Draft](https://tools.ietf.org/html/draft-ietf-acme-ip)
+* [Compare Editor's Copy to Working Group Draft](https://rolandshoemaker.github.io/acme-ip-validation/#go.draft-ietf-acme-ip.diff)
 
 ## Building the Draft
 
@@ -22,4 +21,4 @@ This requires that you have the necessary software installed.  See
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/{GITHUB_USER}/{GITHUB_REPO}/blob/master/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/rolandshoemaker/acme-ip-validation/blob/master/CONTRIBUTING.md).
