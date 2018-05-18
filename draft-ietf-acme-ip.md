@@ -28,7 +28,6 @@ normative:
   RFC4648:
   RFC7230:
   I-D.ietf-acme-acme:
-  I-D.ietf-acme-ip:
   FIPS180-4:
     title: NIST FIPS 180-4, Secure Hash Standard
     author:
@@ -71,7 +70,7 @@ The existing "dns-01" challenge MUST NOT be used to validate IP identifiers.
 
 ## Identifier Types
 
-Adds a new type to the Identifier list defined in Section 9.7.5 of {{I-D.ietf-acme-acme}} with the label "ip" and reference {{I-D.ietf-acme-ip}}.
+Adds a new type to the Identifier list defined in Section 9.7.5 of {{I-D.ietf-acme-acme}} with the label "ip" and reference I-D.ietf-acme-ip.
 
 ## Challenge Types
 
