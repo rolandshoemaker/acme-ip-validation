@@ -28,6 +28,7 @@ normative:
   RFC4648:
   RFC7230:
   I-D.ietf-acme-acme:
+  I-D.ietf-acme-tls-alpn:
   FIPS180-4:
     title: NIST FIPS 180-4, Secure Hash Standard
     author:
@@ -44,7 +45,7 @@ This document specifies identifiers and challenges required to enable the Automa
 
 # Introduction
 
-The Automatic Certificate Management Environment (ACME) {{I-D.ietf-acme-acme}} only defines challenges for validating control of DNS host name identifiers which limits its use to being used for issuing certificates for DNS identifiers. In order to allow validation of IPv4 and IPv6 identifiers for inclusion in X.509 certificates this document specifies how challenges defined in the original ACME specification can be used to validate IP identifiers.
+The Automatic Certificate Management Environment (ACME) {{I-D.ietf-acme-acme}} only defines challenges for validating control of DNS host name identifiers which limits its use to being used for issuing certificates for DNS identifiers. In order to allow validation of IPv4 and IPv6 identifiers for inclusion in X.509 certificates this document specifies how challenges defined in the original ACME specification and the TLS-ALPN extension specification {{I-D.ietf-acme-tls-alpn}} can be used to validate IP identifiers.
 
 # Terminology
 
@@ -62,7 +63,11 @@ An identifier for the IPv6 address 2001:db8::1 would be formatted like so:
 
 # Identifier Validation Challenges
 
-IP identifiers MAY be used with the existing "http-01" and "tls-sni-02" challenges from {{I-D.ietf-acme-acme}} Sections 8.3 and 8.4 respectively. To use IP identifiers with these challenges their initial DNS resolution step MUST be skipped and the IP address used for validation MUST be the value of the identifier. For the "http-01" challenge the Host header MUST be set to the IP address being used for validation per {{RFC7230}}.
+IP identifiers MAY be used with the existing "http-01" and "tls-alpn-01" challenges from {{I-D.ietf-acme-acme}} Section 8.3 and {{I-D.ietf-acme-tls-alpn}} Section 3 respectively. To use IP identifiers with these challenges their initial DNS resolution step MUST be skipped and the IP address used for validation MUST be the value of the identifier.
+
+For the "http-01" challenge the Host header MUST be set to the IP address being used for validation per {{RFC7230}}.
+
+For the "tls-alpn-01" challenge the SNI value MUST be set to the IP address being used for validation and the subjectAltName extension in the validation certificate MUST contain a single iPAddress which matches the address being validated.
 
 The existing "dns-01" challenge MUST NOT be used to validate IP identifiers.
 
@@ -70,11 +75,11 @@ The existing "dns-01" challenge MUST NOT be used to validate IP identifiers.
 
 ## Identifier Types
 
-Adds a new type to the Identifier list defined in Section 9.7.5 of {{I-D.ietf-acme-acme}} with the label "ip" and reference I-D.ietf-acme-ip.
+Adds a new type to the Identifier list defined in Section 9.7.7 of {{I-D.ietf-acme-acme}} with the label "ip" and reference I-D.ietf-acme-ip.
 
 ## Challenge Types
 
-Add the value "ip" to the identifier type column for the "http-01" and "tls-sni-02" challenges.
+Adds the value "ip" to the Identifier Type column in the Validation Methods list defined in Section 9.7.8 of {{I-D.ietf-acme-acme}} for the "http-01" and "tls-alpn-01" challenges.
 
 # Security Considerations
 
