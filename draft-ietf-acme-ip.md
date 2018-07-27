@@ -26,6 +26,7 @@ normative:
   RFC3596:
   RFC4291:
   RFC4648:
+  RFC6066:
   RFC7230:
   I-D.ietf-acme-acme:
   I-D.ietf-acme-tls-alpn:
@@ -67,7 +68,7 @@ IP identifiers MAY be used with the existing "http-01" and "tls-alpn-01" challen
 
 For the "http-01" challenge the Host header MUST be set to the IP address being used for validation per {{RFC7230}}.
 
-For the "tls-alpn-01" challenge the SNI value MUST be set to the IP address being used for validation and the subjectAltName extension in the validation certificate MUST contain a single iPAddress which matches the address being validated.
+For the "tls-alpn-01" the subjectAltName extension in the validation certificate MUST contain a single iPAddress which matches the address being validated. As {{RFC6066}} does not permit IP addresses to be used in the SNI extension the server MUST instead use the IN-ADDR.ARPA {{RFC1034}} or IP6.ARPA {{RFC3596}} reverse mapping of the IP address as the SNI value instead of the literal IP address.
 
 The existing "dns-01" challenge MUST NOT be used to validate IP identifiers.
 
