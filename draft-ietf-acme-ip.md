@@ -26,6 +26,7 @@ normative:
   RFC3596:
   RFC4291:
   RFC4648:
+  RFC5952:
   RFC6066:
   RFC7230:
   I-D.ietf-acme-acme:
@@ -54,7 +55,7 @@ In this document, the key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL 
 
 # IP Identifier
 
-{{I-D.ietf-acme-acme}} only defines the identifier type "dns" which is used to refer to fully qualified domain names. If a ACME server wishes to request proof that a user controls a IPv4 or IPv6 address it MUST create an authorization with the identifier type "ip". The value field of the identifier MUST contain the textual form of the address as defined in {{RFC1123}} Section 2.1 for IPv4 and in {{RFC4291}} Section 2.2 for IPv6.
+{{I-D.ietf-acme-acme}} only defines the identifier type "dns" which is used to refer to fully qualified domain names. If a ACME server wishes to request proof that a user controls a IPv4 or IPv6 address it MUST create an authorization with the identifier type "ip". The value field of the identifier MUST contain the textual form of the address as defined in {{RFC1123}} Section 2.1 for IPv4 and in {{RFC5952}} Section 4 for IPv6.
 
 An identifier for the IPv6 address 2001:db8::1 would be formatted like so:
 
@@ -66,9 +67,15 @@ An identifier for the IPv6 address 2001:db8::1 would be formatted like so:
 
 IP identifiers MAY be used with the existing "http-01" and "tls-alpn-01" challenges from {{I-D.ietf-acme-acme}} Section 8.3 and {{I-D.ietf-acme-tls-alpn}} Section 3 respectively. To use IP identifiers with these challenges their initial DNS resolution step MUST be skipped and the IP address used for validation MUST be the value of the identifier.
 
-For the "http-01" challenge the Host header MUST be set to the IP address being used for validation per {{RFC7230}}.
+# HTTP Challenge
 
-For the "tls-alpn-01" the subjectAltName extension in the validation certificate MUST contain a single iPAddress which matches the address being validated. As {{RFC6066}} does not permit IP addresses to be used in the SNI extension the server MUST instead use the IN-ADDR.ARPA {{RFC1034}} or IP6.ARPA {{RFC3596}} reverse mapping of the IP address as the SNI value instead of the literal IP address.
+For the "http-01" challenge the Host header MUST be set to the IP address being used for validation per {{RFC7230}}. The textual form of this address MUST be those defined in {{RFC1123}} Section 2.1 for IPv4 and in {{RFC5952}} Section 4 for IPv6.
+
+# TLS with Application Level Protocol Negotiation (TLS ALPN) Challenge
+
+For the "tls-alpn-01" challenge the subjectAltName extension in the validation certificate MUST contain a single iPAddress which matches the address being validated. As {{RFC6066}} does not permit IP addresses to be used in the SNI extension HostName the server MUST instead use the IN-ADDR.ARPA {{RFC1034}} or IP6.ARPA {{RFC3596}} reverse mapping of the IP address as the HostName value instead of the literal IP address. For example if the IP address being validated is 2001:db8::1 the SNI HostName should contain "1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa.".
+
+# DNS Challenge
 
 The existing "dns-01" challenge MUST NOT be used to validate IP identifiers.
 
@@ -81,10 +88,6 @@ Adds a new type to the Identifier list defined in Section 9.7.7 of {{I-D.ietf-ac
 ## Challenge Types
 
 Adds the value "ip" to the Identifier Type column in the Validation Methods list defined in Section 9.7.8 of {{I-D.ietf-acme-acme}} for the "http-01" and "tls-alpn-01" challenges.
-
-# Security Considerations
-
-Given the often short delegation periods for IP addresses provided by various service providers CAs MAY want to impose shorter lifetimes for certificates which contain IP identifiers. They MAY also impose restrictions on IP identifiers which are in CIDRs known to be assigned to service providers who dynamically assign addresses to users for indeterminate periods of time.
 
 # Acknowledgments
 
